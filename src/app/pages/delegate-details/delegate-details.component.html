@@ -1,0 +1,62 @@
+<div class="notification is-warning mt-4" *ngIf="message">
+	<button class="delete" (click)="showMessage('');"></button>
+	<p class="is-centered">{{ message }}</p>
+</div>
+<form #datafrom="ngForm">
+	<section class="section pt-4">
+		<div class="container is-fluid">
+			<div class="columns is-multiline" *ngIf="showInfo">
+				<div class="column">
+					<div class="card outlined">
+						<header class="card-header is-fluid is-centered">
+							<p class="card-header-title is-fluid is-centered">
+								<span class="is-fullwidth">
+									<span class="icon"><fa-icon [icon]=faCheckToSlot></fa-icon></span>
+									<span>&nbsp;Voting</span>
+								</span>
+							</p>
+						</header>
+						<div class="card-content has-text-centered pt-2">
+							<div class="content" *ngIf="sharedDelegate">
+								<div class="field">
+									<label class="label pr-1">
+										Use the xCash Destop Wallet or the xCash-wallet-cli for voting. Here are
+										examples of the xCash-wallet-cli voting commands for this delegate:</label>
+									<div class="control has-icons-right">
+										<input class="input is-hovered is-fullwidth" type="text" name="vote1"
+											[(ngModel)]="voteCmd1" readonly #vote1>
+										<span class="icon is-small is-right is-clickable"
+											(click)="copyToClipboard(vote1.value)" [ngxTippy]="'Text Coppied'"
+											[tippyProps]="tippyOptions">
+											<fa-icon [icon]="faCopy"></fa-icon>
+										</span>
+									</div>
+								</div>
+								<div class="field">
+									<label class="label pr-1">or</label>
+									<div class="control has-icons-right">
+										<input class="input is-hovered is-fullwidth" type="text" name="vote2"
+											[(ngModel)]="voteCmd2" readonly #vote2>
+										<span class="icon is-small is-right is-clickable"
+											(click)="copyToClipboard(vote2.value)" [ngxTippy]="'Text Coppied'"
+											[tippyProps]="tippyOptions">
+											<fa-icon [icon]="faCopy"></fa-icon>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="content" *ngIf="!sharedDelegate">
+								<div class="content">
+									<p>This node is a Solo Delegate. You can not vote for a Solo Delegate.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</form>
+<div class="spinner-container" *ngIf="showSpinner">
+	<div class="spinner"></div>
+</div>

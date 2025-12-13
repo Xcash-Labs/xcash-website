@@ -1,0 +1,36 @@
+<nav class="navbar is-grey" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item">
+      <img src="assets/images/xcash_logo.png" width="113" height="28" title="X-Cash Delegate">
+    </a>
+    <a role="button" class="navbar-burger" [class.is-active]="isActive" (click)="toggleNavbar()" aria-label="menu"
+      aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="xnavbar" class="navbar-menu" [class.is-active]="isActive">
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a title="Links" class="navbar-link is-arrowless">
+          Links
+        </a>
+        <div class="navbar-dropdown" (click)="closeNavbar()">
+          <a title="xCash Block Explorer" class="navbar-item" href="https://explorer.xcashlabs.org/"
+            target="_blank">
+            xCash Block Explorer
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a title="About" class="navbar-link is-arrowless">
+          About
+        </a>
+        <div class="navbar-dropdown"  (click)="closeNavbar()">
+          <a class="navbar-item">Version: {{versionInfo}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
