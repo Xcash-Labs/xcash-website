@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "delegates-pool-website": {
+    "xcash-website": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/delegates-pool-website",
+            "outputPath": "dist/xcash-website",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -69,14 +69,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "delegates-pool-website:build:development"
+            "buildTarget": "xcash-website:build:development"
           },
           "configurations": {
             "production": {
-              "buildTarget": "delegates-pool-website:build:production"
+              "buildTarget": "xcash-website:build:production"
             },
             "development": {
-              "buildTarget": "delegates-pool-website:build:development"
+              "buildTarget": "xcash-website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "delegates-pool-website:build"
+            "buildTarget": "xcash-website:build"
           }
         },
         "test": {
