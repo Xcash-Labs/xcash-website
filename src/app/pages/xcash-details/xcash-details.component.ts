@@ -11,16 +11,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @Component({
   selector: 'app-delegate-details',
   standalone: true,
-  templateUrl: './delegate-details.component.html',
-  styleUrls: ['./delegate-details.component.sass'],
+  templateUrl: './xcash-details.component.html',
+  styleUrls: ['./xcash-details.component.sass'],
   imports: [
     CommonModule,
     FormsModule,
     NgxTippyModule,
-    FontAwesomeModule
+    FontAwesomeModule 
   ]
 })
-export class DelegateDetailsComponent {
+export class XCashDetailsComponent {
   constructor(
     private xcashdelegatesService: XcashDelegatesService,
     private loadconfigService: LoadconfigService

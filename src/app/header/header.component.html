@@ -1,4 +1,4 @@
-<nav class="navbar is-grey" role="navigation" aria-label="main navigation">
+<nav class="navbar has-background-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item">
       <img src="assets/images/xcash_logo.png" width="113" height="28" title="X-Cash Delegate">
@@ -12,6 +12,10 @@
   </div>
   <div id="xnavbar" class="navbar-menu" [class.is-active]="isActive">
     <div class="navbar-start">
+      <a class="navbar-item" (click)="goHome()">
+        Home
+      </a>
+
       <div class="navbar-item has-dropdown is-hoverable">
         <a title="Links" class="navbar-link is-arrowless">
           Links
@@ -21,8 +25,31 @@
             target="_blank">
             xCash Block Explorer
           </a>
+
+          <a title="xCash Block Explorer" class="navbar-item" href="https://github.com/Xcash-Labs/"
+            target="_blank">
+            xCashLabs github
+          </a>
         </div>
       </div>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a title="About" class="navbar-link is-arrowless">
+          Documents
+        </a>
+        <div class="navbar-dropdown"  (click)="closeNavbar()">
+          <a class="navbar-item">None</a>
+        </div>
+      </div>
+
+      <a class="navbar-item" (click)="goDownloads()">
+        Downloads
+      </a>
+
+      <a class="navbar-item" (click)="goHome()">
+        Migration
+      </a>
+
       <div class="navbar-item has-dropdown is-hoverable">
         <a title="About" class="navbar-link is-arrowless">
           About

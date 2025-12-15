@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { ConstantsService } from '../services/constants.service';
 
 @Component({
@@ -15,7 +16,19 @@ import { ConstantsService } from '../services/constants.service';
 })
 export class HeaderComponent {
 
-  constructor(private constantsService: ConstantsService) { }
+  constructor(private constantsService: ConstantsService,
+    private router: Router
+  ) { }
+
+  goHome() {
+    this.closeNavbar();
+    this.router.navigateByUrl(' ');
+  }
+
+  goDownloads() {
+    this.closeNavbar();
+    this.router.navigateByUrl('/downloads');
+  }
 
   title = 'xcash';
   versionInfo: string = '';
