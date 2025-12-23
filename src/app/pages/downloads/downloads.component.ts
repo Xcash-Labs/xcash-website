@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-downloads',
-  imports: [],
+  standalone: true,
   templateUrl: './downloads.component.html',
-  styleUrl: './downloads.component.sass'
+  styleUrls: ['./downloads.component.sass'],
+  imports: [
+    FontAwesomeModule 
+  ]
 })
-export class DownloadsComponent {
 
+export class DownloadsComponent {
+  constructor(
+  ) { }
 }
