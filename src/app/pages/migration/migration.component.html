@@ -1,0 +1,114 @@
+    <div class="px-6 py-4">
+  <div class="box p-5" style="min-height: calc(100dvh - 5rem); overflow: auto;">
+
+    <!-- Section header -->
+    <h2 class="title is-4 mb-1">Verify Reserve Proof</h2>
+
+    <form #datafrom="ngForm" (ngSubmit)="selectVerify($event)">
+      <section>
+        <!-- Reserve Proof Address -->
+        <div class="field">
+          <label for="name">
+            Reserve Proof Address:&nbsp;
+            <span class="icon is-small is-right is-clickable" (click)="onPaste($event, 'addr')">
+              <fa-icon [icon]="faPaste"></fa-icon>
+            </span>
+          </label>
+          <div>
+            <textarea
+              type="text"
+              name="signAddress"
+              class="textarea input is-hovered"
+              [(ngModel)]="rpAddress"
+              #signAddressinput="ngModel"
+              [pattern]="addressCk"
+              required
+              placeholder="Enter the address that was used to create the reserve proof"
+              rows="2"
+            ></textarea>
+            <div class="help" *ngIf="signAddressinput.invalid && rpAddress !== ''">
+              Invalid format, please enter a valid X-Cash address.
+            </div>
+          </div>
+        </div>
+
+        <!-- Reserve Proof Signature -->
+        <div class="field">
+          <label for="name">
+            Reserve Proof Signature:&nbsp;
+            <span
+              class="icon is-small is-right is-clickable is-fullwidth"
+              (click)="onPaste($event, 'sign')"
+            >
+              <fa-icon [icon]="faPaste"></fa-icon>
+            </span>
+          </label>
+          <div>
+            <textarea
+              type="text"
+              name="signature"
+              class="textarea input is-hovered"
+              [(ngModel)]="rpSignature"
+              #signatueinput="ngModel"
+              [pattern]="rpCk"
+              required
+              placeholder="Enter the reserve proof signature to verify"
+              rows="3"
+            ></textarea>
+            <div class="help" *ngIf="signatueinput.invalid && rpSignature !== ''">
+              Invalid format, please enter a valid reserve proof signature.
+            </div>
+          </div>
+        </div>
+
+        <!-- Amounts -->
+        <div id="amounts" [ngClass]="{ 'is-hidden': hideAmounts }">
+          <div class="columns">
+            <div class="column">
+              <div class="field is-horizontal">
+                <label class="label pr-1">Reserve Total:</label>
+                <div class="control">
+                  <input
+                    class="input is-hovered is-small"
+                    type="text"
+                    name="total"
+                    [(ngModel)]="totalAmt"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="notification {{ messageType }} mt-1" *ngIf="message">
+          <button type="button" class="delete" (click)="showMessage('')"></button>
+          <p class="is-centered">{{ message }}</p>
+        </div>
+      </section>
+
+      <footer class="mt-4">
+        <button
+          type="submit"
+          class="button is-primary"
+          [disabled]="datafrom.invalid || showSpinner"
+        >
+          Transfer
+        </button>
+        <button
+          type="button"
+          class="button is-hovered ml-2"
+          (click)="cancelVerify()"
+        >
+          Cancel
+        </button>
+      </footer>
+    </form>
+
+    <div class="spinner-container" *ngIf="showSpinner">
+      <div class="spinner"></div>
+    </div>
+
+  </div>
+</div>

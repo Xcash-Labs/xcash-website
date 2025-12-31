@@ -30,6 +30,11 @@ export class HeaderComponent {
     this.router.navigateByUrl('/downloads');
   }
 
+  goMigration() {
+    this.closeNavbar();
+    this.router.navigateByUrl('/migration');
+  }
+
   title = 'xcash';
   versionInfo: string = '';
   isActive: boolean = false;
