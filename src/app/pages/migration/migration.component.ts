@@ -4,14 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { faPaste } from '@fortawesome/free-solid-svg-icons';
 import { ValidatorsRegexService } from 'src/app/services/validators-regex.service';
 import { ConstantsService } from 'src/app/services/constants.service';
-import { XcashCurrencyPipe } from 'src/app/pipes/xcash-currency.pipe';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { XcashDelegatesService } from 'src/app/services/xcash-delegates.service';
 
 @Component({
   selector: 'app-migration',
   standalone: true,
-  imports: [CommonModule, FormsModule, FaIconComponent,  XcashCurrencyPipe],
+  imports: [CommonModule, FormsModule, FaIconComponent],
   templateUrl: './migration.component.html',
   styleUrls: ['./migration.component.sass']
 })
@@ -50,6 +49,10 @@ export class MigrationComponent implements OnInit {
   }
 
   cancelVerify(): void {
+    this.rpAddress = '';
+    this.rpSignature = '';
+    this.message  = '';
+    this.hideAmounts = true;
     this.onClose.emit({});
   }
 
@@ -74,12 +77,15 @@ export class MigrationComponent implements OnInit {
           this.message = 'Reserve Proof is 0, nothing to transfer.';
         } else if (atomic == -1) {
           this.messageType = 'is-danger';
-          this.message = 'Reserve Proof has verified and transfered.';
+          this.message = 'Reserve Proof or XCA address has already been verified and transfered.';
+        } else if (atomic == -2) {
+          this.messageType = 'is-danger';
+          this.message = 'Reserve Proof of this amount needs manual approval by community';
         } else {
           this.totalAmt = human.toString();
           this.hideAmounts = false;
           this.messageType = 'is-success';
-          this.message = 'Reserve proof has already been verified and Transfered successfully.';
+          this.message = 'Reserve proof has been verified and added to the queue successfully.';
         }
       } else {
         this.messageType = 'is-danger';
