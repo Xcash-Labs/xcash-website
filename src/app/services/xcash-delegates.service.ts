@@ -62,7 +62,7 @@ export class XcashDelegatesService {
 
             // If backend sent a JSON error with "Error" field, surface it
             if (error.error && typeof error.error === 'object' && error.error.Error) {
-              httpErrorMessage += ` – ${error.error.Error}`;
+              httpErrorMessage += ` - ${error.error.Error}`;
             }
 
             // We return null here; the outer code will see hadHttpError === true
