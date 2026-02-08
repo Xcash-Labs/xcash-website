@@ -1,0 +1,151 @@
+<div class="px-6 py-4">
+  <div class="box p-5" style="min-height: calc(100dvh - 5rem); overflow: auto;">
+
+    <!-- Header -->
+    <h2 class="title is-4 mb-3">Delegates</h2>
+
+    <p *ngIf="loading" class="has-text-grey is-size-7 mb-4">Loading...</p>
+    <p *ngIf="!loading && error" class="has-text-danger is-size-7 mb-4">
+      {{ error }}
+    </p>
+
+    <ng-container *ngIf="!loading && !error">
+
+      <!-- 2 per row -->
+      <ng-container *ngFor="let d of delegates; let i = index">
+        <div class="columns is-variable is-4" *ngIf="i % 2 === 0">
+
+          <!-- LEFT CARD -->
+          <div class="column is-6">
+            <div class="box p-4" *ngIf="delegates[i] as left">
+
+              <!-- name + status -->
+              <div class="is-flex is-justify-content-space-between is-align-items-center">
+                <div class="has-text-weight-semibold">
+                    {{ left.delegateName }}
+                    <div *ngIf="seedLocation(left)" class="is-size-7 has-text-grey">
+                        ({{ seedLocation(left) }})
+                    </div>
+                </div>
+
+                <span class="tag"
+                      [class.is-success]="left.online"
+                      [class.is-danger]="!left.online">
+                  {{ left.online ? 'Online' : 'Offline' }}
+                </span>
+              </div>
+
+              <!-- info grid -->
+              <div class="columns is-mobile is-multiline mt-3 is-variable is-1">
+
+                <div class="column is-6">
+                  <div class="is-size-7 has-text-grey">Type</div>
+                  <div class="is-size-6">{{ left.DelegateType }}</div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="is-size-7 has-text-grey">Total Rounds</div>
+                  <div class="is-size-6">{{ left.totalRounds }}</div>
+                </div>
+
+                <!-- Non-seed only -->
+                <ng-container *ngIf="left.DelegateType !== 'seed'">
+
+                  <div class="column is-6">
+                    <div class="is-size-7 has-text-grey">Fee</div>
+                    <div class="is-size-6">{{ left.fee }}%</div>
+                  </div>
+
+                  <div class="column is-6">
+                    <div class="is-size-7 has-text-grey">Total Blocks Produced</div>
+                    <div class="is-size-6">{{ left.totalBlockProducerRounds }}</div>
+                  </div>
+
+                  <div class="column is-12">
+                    <div class="is-size-7 has-text-grey">Uptime</div>
+                    <progress class="progress is-small"
+                              [value]="left.onlinePercentage"
+                              max="100">
+                      {{ left.onlinePercentage }}%
+                    </progress>
+                    <div class="is-size-7 has-text-grey">
+                      {{ left.onlinePercentage }}%
+                    </div>
+                  </div>
+
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD -->
+          <div class="column is-6" *ngIf="delegates[i + 1] as right">
+            <div class="box p-4">
+
+              <div class="is-flex is-justify-content-space-between is-align-items-center">
+                <div class="has-text-weight-semibold">
+                  {{ right.delegateName }}
+                    <div *ngIf="seedLocation(right)" class="is-size-7 has-text-grey">
+                        ({{ seedLocation(right) }})
+                    </div>
+                </div>
+
+                <span class="tag"
+                      [class.is-success]="right.online"
+                      [class.is-danger]="!right.online">
+                  {{ right.online ? 'Online' : 'Offline' }}
+                </span>
+              </div>
+
+              <div class="columns is-mobile is-multiline mt-3 is-variable is-1">
+
+                <div class="column is-6">
+                  <div class="is-size-7 has-text-grey">Type</div>
+                  <div class="is-size-6">{{ right.DelegateType }}</div>
+                </div>
+
+                <div class="column is-6">
+                  <div class="is-size-7 has-text-grey">Total Rounds</div>
+                  <div class="is-size-6">{{ right.totalRounds }}</div>
+                </div>
+
+                <ng-container *ngIf="right.DelegateType !== 'seed'">
+
+                  <div class="column is-6">
+                    <div class="is-size-7 has-text-grey">Fee</div>
+                    <div class="is-size-6">{{ right.fee }}%</div>
+                  </div>
+
+                  <div class="column is-6">
+                    <div class="is-size-7 has-text-grey">Total Blocks Produced</div>
+                    <div class="is-size-6">{{ right.totalBlockProducerRounds }}</div>
+                  </div>
+
+                  <div class="column is-12">
+                    <div class="is-size-7 has-text-grey">Uptime</div>
+                    <progress class="progress is-small"
+                              [value]="right.onlinePercentage"
+                              max="100">
+                      {{ right.onlinePercentage }}%
+                    </progress>
+                    <div class="is-size-7 has-text-grey">
+                      {{ right.onlinePercentage }}%
+                    </div>
+                  </div>
+
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+
+      <p *ngIf="delegates.length === 0" class="has-text-grey is-size-7">
+        No delegates found.
+      </p>
+
+    </ng-container>
+
+  </div>
+</div>

@@ -30,6 +30,11 @@ export class HeaderComponent {
     this.router.navigateByUrl('/downloads');
   }
 
+  goDelegates() {
+    this.closeNavbar();
+    this.router.navigateByUrl('/delegates');
+  }
+
   goMigration() {
     this.closeNavbar();
     this.router.navigateByUrl('/migration');
