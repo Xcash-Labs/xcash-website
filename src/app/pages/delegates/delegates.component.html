@@ -35,9 +35,11 @@
                                     </div>
                                 </div>
 
-                                <span class="tag" [class.is-success]="left.online" [class.is-danger]="!left.online">
-                                    {{ left.online ? 'Online' : 'Offline' }}
-                                </span>
+                                <div class="delegate-status-wrap">
+                                    <span class="tag" [class.is-success]="left.online" [class.is-danger]="!left.online">
+                                        {{ left.online ? 'Online' : 'Offline' }}
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- info grid -->
@@ -76,7 +78,7 @@
 
                                     <div class="column is-6">
                                         <div class="is-size-7 has-text-grey">Total Votes</div>
-                                        <div class="is-size-6">{{ ((left.votes ?? 0) / 1000000) | number:'1.2-2' }}</div>
+                                        <div class="is-size-6">{{ ((left.votes ?? 0) / 1000000) | number:'1.0-0' }}</div>
                                     </div>
 
                                     <div class="column is-12">
@@ -113,9 +115,11 @@
                                     </div>
                                 </div>
 
-                                <span class="tag" [class.is-success]="right.online" [class.is-danger]="!right.online">
-                                    {{ right.online ? 'Online' : 'Offline' }}
-                                </span>
+                                <div class="delegate-status-wrap">
+                                    <span class="tag" [class.is-success]="right.online" [class.is-danger]="!right.online">
+                                        {{ right.online ? 'Online' : 'Offline' }}
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="columns is-mobile is-multiline mt-3 is-variable is-1">
@@ -151,7 +155,7 @@
 
                                     <div class="column is-6">
                                         <div class="is-size-7 has-text-grey">Total Votes</div>
-                                        <div class="is-size-6">{{ ((right.votes ?? 0) / 1000000) | number:'1.2-2' }}</div>
+                                        <div class="is-size-6">{{ ((right.votes ?? 0) / 1000000) | number:'1.0-0' }}</div>
                                     </div>
 
                                     <div class="column is-12">

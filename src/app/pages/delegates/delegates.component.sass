@@ -1,0 +1,19 @@
+// Your header row already has is-flex. We just make it wrap.
+.is-flex.is-justify-content-space-between.is-align-items-center
+  flex-wrap: wrap
+  align-items: flex-start
+
+// When the status has to wrap to a new line, keep it on the right
+.delegate-status-wrap
+  margin-left: auto          // pushes it to the right on the first line
+  flex: 0 0 auto
+
+@media (max-width: 768px)
+  .delegate-status-wrap
+    flex: 0 0 100%           // if it wraps, it becomes its own full-width row
+    display: flex
+    justify-content: flex-end // keep the tag on the right on that new line
+    margin-top: 0.25rem
+
+  .delegate-status-wrap > .tag
+    white-space: nowrap
