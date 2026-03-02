@@ -39,7 +39,7 @@ export class PaymentsComponent implements OnDestroy {
     this.dt = $(this.table.nativeElement).DataTable({
       lengthMenu: [7, 25, 50, 100],
       pageLength: 7,
-      order: [[1, 'desc']], // optional: sort by Total Votes desc
+      order: [[5, 'desc']], // optional: sort by Total Votes desc
       // optional empty message (since we moved empty state outside table)
       language: { emptyTable: 'No payments found' },
     });
