@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XcashDelegatesService } from 'src/app/services/xcash-delegates.service';
+import { VotersComponent } from './modals/voters/voters.component';
+import { PaymentsComponent } from './modals/payments/payments.component';
 
 @Component({
   selector: 'app-delegates',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, VotersComponent, PaymentsComponent],
   templateUrl: './delegates.component.html',
   styleUrl: './delegates.component.sass'
 })
@@ -13,6 +15,9 @@ export class DelegatesComponent implements OnInit {
   loading = false;
   error = '';
   delegates: any[] = [];
+  votersModalOpen = false;
+  selectedDelegate: any = null;
+  paymentsModalOpen = false;
 
   constructor(private delegatesSvc: XcashDelegatesService) {}
 
@@ -65,4 +70,25 @@ export class DelegatesComponent implements OnInit {
       this.loading = false;
     }
   }
+
+  openVoters(d: any) {
+    this.selectedDelegate = d;
+    this.votersModalOpen = true;
+  }
+
+  closeVoters() {
+    this.votersModalOpen = false;
+    this.selectedDelegate = null;
+  }
+
+  openPayments(d: any) {
+    this.selectedDelegate = d;
+    this.paymentsModalOpen = true;
+  }
+
+  closePayments() {
+    this.paymentsModalOpen = false;
+    this.selectedDelegate= null;
+  }
+
 }

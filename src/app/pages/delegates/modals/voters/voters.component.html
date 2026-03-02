@@ -1,0 +1,60 @@
+<div class="modal is-active">
+    <div class="modal-background" (click)="onClose()"></div>
+
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Voters</p>
+            <button class="delete" aria-label="close" (click)="onClose()"></button>
+        </header>
+
+        <section class="modal-card-body">
+            <table #table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Address</th>
+                        <th class="has-text-right">Total Votes</th>
+                        <th class="has-text-right">Percent</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let v of Voters">
+                        <td class="is-family-monospace">
+                            <div class="is-flex is-align-items-center" style="gap: .5rem;">
+                                <span [title]="v.address">
+                                    {{ shortAddr(v.address, 12, 8) }}
+                                </span>
+
+                                <span class="icon is-clickable has-text-grey" title="Copy address"
+                                    (click)="copy(v.address)" style="cursor:pointer">
+                                    <fa-icon [icon]="faCopy"></fa-icon>
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="has-text-right">
+                            {{ ((v.total_votes ?? 0) / 1000000) | number:'1.0-0' }}
+                        </td>
+
+                        <td class="has-text-right">
+                            {{ v.percent | number:'1.0-2' }}%
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Put the empty-state OUTSIDE the table when using DataTables -->
+            <p *ngIf="!loading && (!Voters || Voters.length === 0)" class="has-text-grey mt-2">
+                No voters found
+            </p>
+
+        </section>
+
+        <footer class="modal-card-foot is-justify-content-flex-end">
+            <button type="button" class="button" (click)="onClose()">Close</button>
+        </footer>
+    </div>    
+    <div class="spinner-container" *ngIf="loading">
+        <div class="spinner"></div>
+    </div>
+</div>

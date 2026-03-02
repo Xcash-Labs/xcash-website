@@ -4,37 +4,38 @@ import { firstValueFrom, catchError, of } from 'rxjs';
 import { httpReturn } from 'src/app/models/http-Return';
 
 @Injectable({ providedIn: 'root' })
-export class XcashDelegatesService {
-  private readonly REGISTERED_DELEGATES_URL =
-    'https://api.xcashseeds.us/v2/xcash/dpops/unauthorized/delegates/registered/';
+export class XcashPaymentsService {
+  private readonly BASE_URL =
+    'https://api.xcashseeds.us/v2/xcash/dpops/unauthorized/payouts';
 
   constructor(private http: HttpClient) {}
 
   private tryParseJson(text: string): any | null {
-    try {
-      return JSON.parse(text);
-    } catch {
-      return null;
-    }
+    try { return JSON.parse(text); } catch { return null; }
   }
 
-  async getRegisteredDelegates(): Promise<httpReturn> {
+  async getDelegatePayments(IPAddress: string): Promise<httpReturn> {
+    const IPname = (IPAddress ?? '').trim();
+    if (!IPname) {
+      return { status: false, message: 'Missing delegate IP.', data: null };
+    }
+
+    const url = `${this.BASE_URL}/${encodeURIComponent(IPname)}`;
+
     try {
-      // Return raw JSON string
       const raw: string = await firstValueFrom(
-        this.http.get(this.REGISTERED_DELEGATES_URL, { responseType: 'text' }).pipe(
+        this.http.get(url, { responseType: 'text' }).pipe(
           catchError((error) => {
-            console.error('[getRegisteredDelegates] HTTP error:', error);
+            console.error('[getDelegatePayments] HTTP error:', error);
             return of('');
           })
         )
       );
 
       if (!raw) {
-        return { status: false, message: 'Error calling delegates API.', data: null };
+        return { status: false, message: 'Error calling PaymentsService API.', data: null };
       }
 
-      // If backend ever returns an object with Error field, surface it
       const parsed = this.tryParseJson(raw);
       if (parsed && typeof parsed === 'object' && !Array.isArray(parsed) && parsed.Error) {
         return { status: false, message: parsed.Error, data: raw };
@@ -42,7 +43,7 @@ export class XcashDelegatesService {
 
       return { status: true, message: 'Success.', data: raw };
     } catch (error) {
-      console.error('[getRegisteredDelegates] unexpected error:', error);
+      console.error('[getDelegatePayments] unexpected error:', error);
       return { status: false, message: 'Unexpected error.', data: null };
     }
   }

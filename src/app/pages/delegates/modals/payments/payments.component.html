@@ -1,0 +1,95 @@
+<div class="modal is-active">
+  <div class="modal-background" (click)="onClose()"></div>
+
+  <div class="modal-card payments-modal">
+    <header class="modal-card-head">
+      <p class="modal-card-title">  Delegate Payments for Last {{ days }} Days</p>
+      <button class="delete" aria-label="close" (click)="onClose()"></button>
+    </header>
+
+    <section class="modal-card-body">
+      <table #table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>TxID</th>
+            <th>Payment Address</th>
+            <th class="has-text-right">Amount Sent</th>
+            <th class="has-text-right">Fee</th>
+            <th class="has-text-right">Split</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of Payments">
+            <!-- TXID -->
+            <td class="is-family-monospace">
+              <div class="is-flex is-align-items-center" style="gap:.5rem;">
+                <span [title]="p._id">{{ shortAddr(p._id, 5, 5) }}</span>
+
+                <span
+                  class="icon is-clickable has-text-grey"
+                  title="Copy TXID"
+                  (click)="copy(p._id)"
+                  style="cursor:pointer"
+                >
+                  <fa-icon [icon]="faCopy"></fa-icon>
+                </span>
+              </div>
+            </td>
+
+            <!-- Address -->
+            <td class="is-family-monospace">
+              <div class="is-flex is-align-items-center" style="gap:.5rem;">
+                <span [title]="p.payment_address">
+                  {{ shortAddr(p.payment_address, 8, 5) }}
+                </span>
+
+                <span
+                  class="icon is-clickable has-text-grey"
+                  title="Copy address"
+                  (click)="copy(p.payment_address)"
+                  style="cursor:pointer"
+                >
+                  <fa-icon [icon]="faCopy"></fa-icon>
+                </span>
+              </div>
+            </td>
+
+            <!-- Amount Sent (atomic -> XCK, 6 decimals) -->
+            <td class="has-text-right">
+              {{ ((p.amount_atomic_sent ?? 0) / 1000000) | number:'1.2-2' }}
+            </td>
+
+            <!-- Fee (atomic -> XCK) -->
+            <td class="has-text-right">
+              {{ ((p.tx_fee_atomic ?? 0) / 1000000) | number:'1.2-2' }}
+            </td>
+
+            <!-- Split Count -->
+            <td class="has-text-right">
+              {{ p.split_count ?? 0 }}
+            </td>
+
+            <!-- Created At -->
+            <td style="white-space: nowrap;">
+              {{ p.created_at | date:'MMM d, y, h:mm a' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Put the empty-state OUTSIDE the table when using DataTables -->
+      <p *ngIf="!loading && (!Payments || Payments.length === 0)" class="has-text-grey mt-2">
+        No payments found
+      </p>
+    </section>
+
+    <footer class="modal-card-foot is-justify-content-flex-end">
+      <button type="button" class="button" (click)="onClose()">Close</button>
+    </footer>
+  </div>
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+</div>

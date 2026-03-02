@@ -1,14 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 $navbar-breakpoint: 770px // Change the breakpoint from 1024px
 
-@import "bulma/sass/base/_all.sass"
-@import "bulma/sass/components/_all.sass"
-@import "bulma/sass/elements/_all.sass"
-@import "bulma/sass/form/_all.sass"
-@import "bulma/sass/grid/columns.sass"
-@import "bulma/sass/helpers/_all.sass"
-@import "bulma/sass/layout/_all.sass"
-@import "bulma/sass/utilities/_all.sass"
+@import "bulma"
+:root
+  --bulma-body-weight: 400
+  --bulma-weight-normal: 400
+  --bulma-weight-medium: 500
+  --bulma-weight-semibold: 600
+  --bulma-weight-bold: 700
+
+  // Force a familiar Windows font stack (often the real culprit)
+  --bulma-family-primary: "Segoe UI", Arial, sans-serif
+
+.title, .subtitle
+  font-weight: 500 !important
+
+html, body
+  font-weight: 400 !important
+
+@import "datatables.net-dt/css/dataTables.dataTables.css"
 
 .spinner-container
   position: absolute
