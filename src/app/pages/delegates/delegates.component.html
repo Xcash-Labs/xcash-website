@@ -64,7 +64,7 @@
                                         <div class="column is-6">
                                             <div class="is-size-7 has-text-grey">Fee</div>
                                             <div class="is-size-6">
-                                                {{ left.DelegateType === 'solo' ? 'N/A' : (left.fee + '%') }}
+                                                {{ left.DelegateType === 'solo' ? 'N/A' : ((left.fee / 100) + '%') }}
                                             </div>
                                         </div>
 
@@ -167,7 +167,7 @@
                                         <div class="column is-6">
                                             <div class="is-size-7 has-text-grey">Fee</div>
                                             <div class="is-size-6">
-                                                {{ right.DelegateType === 'solo' ? 'N/A' : (right.fee + '%') }}
+                                                {{ right.DelegateType === 'solo' ? 'N/A' : ((right.fee / 100) + '%') }}
                                             </div>
                                         </div>
 
