@@ -1,0 +1,75 @@
+<div class="modal is-active">
+  <div class="modal-background" (click)="onClose()"></div>
+
+  <div class="modal-card payments-modal">
+    <header class="modal-card-head">
+      <p class="modal-card-title">
+        Pending Payout Balances
+      </p>
+      <button class="delete" aria-label="close" (click)="onClose()"></button>
+    </header>
+
+    <section class="modal-card-body">
+      <table #table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th class="has-text-right">Pending Balance</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let p of PendingPayments">
+
+            <!-- Address -->
+            <td class="is-family-monospace">
+              <div class="is-flex is-align-items-center" style="gap:.5rem;">
+                <span [title]="p._id">
+                  {{ shortAddr(p._id, 12, 8) }}
+                </span>
+
+                <span
+                  class="icon is-clickable has-text-grey"
+                  title="Copy address"
+                  (click)="copy(p._id)"
+                  style="cursor:pointer"
+                >
+                  <fa-icon [icon]="faCopy"></fa-icon>
+                </span>
+              </div>
+            </td>
+
+            <!-- Pending Balance -->
+            <td class="has-text-right">
+              {{ ((p.pending_atomic ?? 0) / 1000000) | number:'1.0-3' }}
+            </td>
+
+            <!-- Updated -->
+            <td style="white-space: nowrap;">
+              {{ p.updated_at | date:'MMM d, y, h:mm a' }}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <p
+        *ngIf="!loading && (!PendingPayments || PendingPayments.length === 0)"
+        class="has-text-grey mt-2"
+      >
+        No pending payouts found
+      </p>
+    </section>
+
+    <footer class="modal-card-foot is-justify-content-flex-end">
+      <button type="button" class="button" (click)="onClose()">
+        Close
+      </button>
+    </footer>
+  </div>
+
+  <div class="spinner-container" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+</div>

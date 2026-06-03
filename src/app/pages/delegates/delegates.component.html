@@ -103,6 +103,12 @@
                                                     (click)="openPayments(left)">
                                                     Payments
                                                 </button>
+
+                                                <button class="button is-small is-link is-light"
+                                                    *ngIf="left.DelegateType !== 'seed' && (left.voters ?? 0) > 0"
+                                                    (click)="openPendingPayments(left)">
+                                                    Pending
+                                                </button>
                                             </div>
                                         </div>
 
@@ -206,6 +212,12 @@
                                                     (click)="openPayments(right)">
                                                     Payments
                                                 </button>
+
+                                                <button class="button is-small is-link is-light"
+                                                    *ngIf="right.DelegateType !== 'seed' && (right.voters ?? 0) > 0"
+                                                    (click)="openPendingPayments(right)">
+                                                    Pending
+                                                </button>
                                             </div>
                                         </div>
                                         
@@ -240,3 +252,5 @@
     </app-voters>
     <app-payments *ngIf="paymentsModalOpen" [delegate]="selectedDelegate" (close)="closePayments()">
     </app-payments>
+    <app-pendingpayments *ngIf="pendingPaymentsModalOpen" [delegate]="selectedDelegate" (close)="closePendingPayments()">
+    </app-pendingpayments>
