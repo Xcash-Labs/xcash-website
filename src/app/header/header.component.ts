@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { ConstantsService } from '../services/constants.service';
 
@@ -8,11 +8,7 @@ import { ConstantsService } from '../services/constants.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.sass'],
-  imports: [
-    CommonModule
-    // Add more here if the template needs them later
-    // e.g. RouterModule, FontAwesomeModule, etc.
-  ]
+  imports: []
 })
 export class HeaderComponent {
 

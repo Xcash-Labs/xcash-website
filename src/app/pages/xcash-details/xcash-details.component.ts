@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { httpReturn } from 'src/app/models/http-Return';
 import { faUserPlus, faCircleInfo, faServer, faCheckToSlot, faMoneyBill, faCopy } from '@fortawesome/free-solid-svg-icons';
@@ -13,11 +13,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './xcash-details.component.html',
   styleUrls: ['./xcash-details.component.sass'],
   imports: [
-    CommonModule,
     FormsModule,
     NgxTippyModule,
-    FontAwesomeModule 
-  ]
+    FontAwesomeModule
+]
 })
 export class XCashDetailsComponent {
   constructor(

@@ -20,46 +20,44 @@
         </thead>
 
         <tbody>
-          <tr *ngFor="let p of PendingPayments">
-
-            <!-- Address -->
-            <td class="is-family-monospace">
-              <div class="is-flex is-align-items-center" style="gap:.5rem;">
-                <span [title]="p._id">
-                  {{ shortAddr(p._id, 12, 8) }}
-                </span>
-
-                <span
-                  class="icon is-clickable has-text-grey"
-                  title="Copy address"
-                  (click)="copy(p._id)"
-                  style="cursor:pointer"
-                >
-                  <fa-icon [icon]="faCopy"></fa-icon>
-                </span>
-              </div>
-            </td>
-
-            <!-- Pending Balance -->
-            <td class="has-text-right">
-              {{ ((p.pending_atomic ?? 0) / 1000000) | number:'1.0-3' }}
-            </td>
-
-            <!-- Updated -->
-            <td style="white-space: nowrap;">
-              {{ p.updated_at | date:'MMM d, y, h:mm a' }}
-            </td>
-
-          </tr>
+          @for (p of PendingPayments; track p) {
+            <tr>
+              <!-- Address -->
+              <td class="is-family-monospace">
+                <div class="is-flex is-align-items-center" style="gap:.5rem;">
+                  <span [title]="p._id">
+                    {{ shortAddr(p._id, 12, 8) }}
+                  </span>
+                  <span
+                    class="icon is-clickable has-text-grey"
+                    title="Copy address"
+                    (click)="copy(p._id)"
+                    style="cursor:pointer"
+                    >
+                    <fa-icon [icon]="faCopy"></fa-icon>
+                  </span>
+                </div>
+              </td>
+              <!-- Pending Balance -->
+              <td class="has-text-right">
+                {{ ((p.pending_atomic ?? 0) / 1000000) | number:'1.0-3' }}
+              </td>
+              <!-- Updated -->
+              <td style="white-space: nowrap;">
+                {{ p.updated_at | date:'MMM d, y, h:mm a' }}
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
 
-      <p
-        *ngIf="!loading && (!PendingPayments || PendingPayments.length === 0)"
-        class="has-text-grey mt-2"
-      >
-        No pending payouts found
-      </p>
+      @if (!loading && (!PendingPayments || PendingPayments.length === 0)) {
+        <p
+          class="has-text-grey mt-2"
+          >
+          No pending payouts found
+        </p>
+      }
     </section>
 
     <footer class="modal-card-foot is-justify-content-flex-end">
@@ -69,7 +67,9 @@
     </footer>
   </div>
 
-  <div class="spinner-container" *ngIf="loading">
-    <div class="spinner"></div>
-  </div>
+  @if (loading) {
+    <div class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+  }
 </div>
