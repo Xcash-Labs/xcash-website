@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XcashPaymentsService } from 'src/app/services/xcash-payments.service';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +20,8 @@ declare const $: any;
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './payments.component.html',
-  styleUrl: './payments.component.sass'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './payments.component.sass',
 })
 export class PaymentsComponent implements OnDestroy {
   @Input() delegate: any;
@@ -22,7 +33,7 @@ export class PaymentsComponent implements OnDestroy {
   days = 7;
   Payments: any[] = [];
 
-  constructor(private paymentsSvc: XcashPaymentsService) { }
+  constructor(private paymentsSvc: XcashPaymentsService) {}
 
   @ViewChild('table', { static: false }) table!: ElementRef;
   private dt: any = null;
@@ -46,7 +57,10 @@ export class PaymentsComponent implements OnDestroy {
   }
 
   private destroyDT(): void {
-    if (this.table?.nativeElement && $.fn.DataTable.isDataTable(this.table.nativeElement)) {
+    if (
+      this.table?.nativeElement &&
+      $.fn.DataTable.isDataTable(this.table.nativeElement)
+    ) {
       $(this.table.nativeElement).DataTable().destroy();
     }
     this.dt = null;
@@ -90,7 +104,8 @@ export class PaymentsComponent implements OnDestroy {
       // Case B: wrapped service
       //   { status:true, data:"{...json...}" } OR data is already an object
       else if (res?.status === true) {
-        payload = typeof res?.data === 'string' ? JSON.parse(res.data) : res.data;
+        payload =
+          typeof res?.data === 'string' ? JSON.parse(res.data) : res.data;
       }
 
       // Unknown shape
@@ -105,7 +120,9 @@ export class PaymentsComponent implements OnDestroy {
       this.days = Number(payload?.days ?? 7);
 
       // Your real array field is payout_receipts (NOT payments)
-      this.Payments = Array.isArray(payload?.payout_receipts) ? payload.payout_receipts : [];
+      this.Payments = Array.isArray(payload?.payout_receipts)
+        ? payload.payout_receipts
+        : [];
 
       if (!this.Payments.length) {
         this.error = 'No payments returned.';

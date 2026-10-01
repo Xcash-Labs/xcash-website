@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
@@ -6,12 +6,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   standalone: true,
   templateUrl: './downloads.component.html',
   styleUrls: ['./downloads.component.sass'],
-  imports: [
-    FontAwesomeModule 
-  ]
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [FontAwesomeModule],
 })
-
 export class DownloadsComponent {
-  constructor(
-  ) { }
+  constructor() {}
 }

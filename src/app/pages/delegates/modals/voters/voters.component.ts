@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+  ElementRef,
+  ViewChild,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XcashVotersService } from 'src/app/services/xcash-voters.service';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +19,7 @@ declare const $: any;
   selector: 'app-voters',
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './voters.component.html',
 })
 export class VotersComponent implements OnDestroy {
@@ -20,7 +31,7 @@ export class VotersComponent implements OnDestroy {
   copied = '';
   Voters: any[] = [];
 
-  constructor(private votersSvc: XcashVotersService) { }
+  constructor(private votersSvc: XcashVotersService) {}
 
   @ViewChild('table', { static: false }) table!: ElementRef;
   private dt: any = null;
@@ -44,7 +55,10 @@ export class VotersComponent implements OnDestroy {
   }
 
   private destroyDT(): void {
-    if (this.table?.nativeElement && $.fn.DataTable.isDataTable(this.table.nativeElement)) {
+    if (
+      this.table?.nativeElement &&
+      $.fn.DataTable.isDataTable(this.table.nativeElement)
+    ) {
       $(this.table.nativeElement).DataTable().destroy();
     }
     this.dt = null;
@@ -88,7 +102,8 @@ export class VotersComponent implements OnDestroy {
 
       // Case B: service wraps: { status:true, data:"{...json...}" } or data is already an object
       if (res?.status === true) {
-        const dataObj = typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+        const dataObj =
+          typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
         this.Voters = Array.isArray(dataObj?.voters) ? dataObj.voters : [];
         setTimeout(() => this.initOrRefreshDT(), 0);
         if (!this.Voters.length) this.error = 'No voters returned.';

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ConstantsService } from '../services/constants.service';
@@ -8,13 +8,14 @@ import { ConstantsService } from '../services/constants.service';
   standalone: true,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.sass'],
-  imports: []
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [],
 })
 export class HeaderComponent {
-
-  constructor(private constantsService: ConstantsService,
+  constructor(
+    private constantsService: ConstantsService,
     private router: Router
-  ) { }
+  ) {}
 
   goHome() {
     this.closeNavbar();
@@ -51,5 +52,4 @@ export class HeaderComponent {
   closeNavbar() {
     this.isActive = false;
   }
-
 }

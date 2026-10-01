@@ -1,8 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { httpReturn } from 'src/app/models/http-Return';
-import { faUserPlus, faCircleInfo, faServer, faCheckToSlot, faMoneyBill, faCopy } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUserPlus,
+  faCircleInfo,
+  faServer,
+  faCheckToSlot,
+  faMoneyBill,
+  faCopy,
+} from '@fortawesome/free-solid-svg-icons';
 import { LoadconfigService } from 'src/app/services/loadconfig.service';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -12,16 +19,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   standalone: true,
   templateUrl: './xcash-details.component.html',
   styleUrls: ['./xcash-details.component.sass'],
-  imports: [
-    FormsModule,
-    NgxTippyModule,
-    FontAwesomeModule
-]
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [FormsModule, NgxTippyModule, FontAwesomeModule],
 })
 export class XCashDetailsComponent {
-  constructor(
-    private loadconfigService: LoadconfigService
-  ) { }
+  constructor(private loadconfigService: LoadconfigService) {}
 
   faUserPlus = faUserPlus;
   faCircleInfo = faCircleInfo;
@@ -53,20 +55,20 @@ export class XCashDetailsComponent {
       setTimeout(() => {
         instance.hide();
       }, 700);
-    }
+    },
   };
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 
   showMessage(message: string): void {
     this.message = message;
   }
 
   copyToClipboard(value: string) {
-    navigator.clipboard.writeText(value)
-      .then(() => { })
-      .catch(err => {
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {})
+      .catch((err) => {
         this.showMessage('Failed to copy text: ' + err);
       });
   }

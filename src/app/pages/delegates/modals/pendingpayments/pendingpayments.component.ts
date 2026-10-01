@@ -6,7 +6,8 @@ import {
   SimpleChanges,
   ElementRef,
   ViewChild,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XcashPendingpaymentsService } from 'src/app/services/xcash-pendingpayments.service';
@@ -20,7 +21,8 @@ declare const $: any;
   standalone: true,
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './pendingpayments.component.html',
-  styleUrl: './pendingpayments.component.sass'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './pendingpayments.component.sass',
 })
 export class PendingpaymentsComponent implements OnDestroy {
   @Input() delegate: any;
@@ -56,7 +58,10 @@ export class PendingpaymentsComponent implements OnDestroy {
   }
 
   private destroyDT(): void {
-    if (this.table?.nativeElement && $.fn.DataTable.isDataTable(this.table.nativeElement)) {
+    if (
+      this.table?.nativeElement &&
+      $.fn.DataTable.isDataTable(this.table.nativeElement)
+    ) {
       $(this.table.nativeElement).DataTable().destroy();
     }
 
@@ -87,8 +92,9 @@ export class PendingpaymentsComponent implements OnDestroy {
     }
 
     try {
-      const res: any =
-        await this.pendingPaymentsSvc.getDelegatePendingPayments(IPAddress);
+      const res: any = await this.pendingPaymentsSvc.getDelegatePendingPayments(
+        IPAddress
+      );
 
       console.log('[PendingpaymentsComponent] API response:', res);
 
@@ -97,9 +103,11 @@ export class PendingpaymentsComponent implements OnDestroy {
       if (res?.status === 'success') {
         payload = res;
       } else if (res?.status === true) {
-        payload = typeof res?.data === 'string' ? JSON.parse(res.data) : res.data;
+        payload =
+          typeof res?.data === 'string' ? JSON.parse(res.data) : res.data;
       } else {
-        this.error = res?.message || res?.error || 'Failed to load pending payments.';
+        this.error =
+          res?.message || res?.error || 'Failed to load pending payments.';
         this.PendingPayments = [];
         this.destroyDT();
         return;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { XcashDelegatesService } from 'src/app/services/xcash-delegates.service';
 import { VotersComponent } from './modals/voters/voters.component';
@@ -8,9 +8,15 @@ import { PendingpaymentsComponent } from './modals/pendingpayments/pendingpaymen
 @Component({
   selector: 'app-delegates',
   standalone: true,
-  imports: [CommonModule, VotersComponent, PaymentsComponent, PendingpaymentsComponent],
+  imports: [
+    CommonModule,
+    VotersComponent,
+    PaymentsComponent,
+    PendingpaymentsComponent,
+  ],
   templateUrl: './delegates.component.html',
-  styleUrl: './delegates.component.sass'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './delegates.component.sass',
 })
 export class DelegatesComponent implements OnInit {
   loading = false;
@@ -27,7 +33,7 @@ export class DelegatesComponent implements OnInit {
     seeds_xcashseeds_us: 'North America',
     seeds_xcashseeds_uk: 'Europe',
     seeds_xcashseeds_cc: 'Asia',
-    seeds_xcashseeds_me: 'South America'
+    seeds_xcashseeds_me: 'South America',
   };
 
   // Returns location only for seeds; empty string otherwise
@@ -90,7 +96,7 @@ export class DelegatesComponent implements OnInit {
 
   closePayments() {
     this.paymentsModalOpen = false;
-    this.selectedDelegate= null;
+    this.selectedDelegate = null;
   }
 
   openPendingPayments(d: any) {
@@ -102,5 +108,4 @@ export class DelegatesComponent implements OnInit {
     this.pendingPaymentsModalOpen = false;
     this.selectedDelegate = null;
   }
-
 }
